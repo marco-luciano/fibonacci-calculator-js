@@ -1,0 +1,62 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --main-color: #ffffff;
+    --background-color: #f5f6f8;
+    --primary-text-color: black;
+    --secondary-text-color: #90a0b7;
+    --dark-blue: #334d6e;
+    --border-color: #ebeff2;
+    --info-color: #0275d8;
+    --success-color: #2ed47a;
+    --failure-color: #f7685b;
+}
+
+body {
+    font-family: "Open Sans", sans-serif;
+}
+
+.fibonacci-menu {
+    margin-top: 3rem;
+    width: 100%;
+    height: 2.4rem;
+    gap: 0.9rem;
+}
+
+.fibonacci-calculator {
+    margin-top: 9vh;
+}
+
+.fibonacci-button {
+    height: 100%;
+}
+
+.fibonacci-title {
+    font-size: calc(2.4rem + 10px);
+}
+
+.fibonacci-of,
+#result {
+    font-size: calc(0.5vw + 12px);
+}
+
+#result {
+    font-weight: 700;
+    text-decoration-line: underline;
+}
+
+.fibonacci-number-input {
+    border: solid 1px #cccccc;
+    outline: none;
+    width: calc(2vw + 30px);
+    height: 100%;
+    font-size: 20px;
+}
+
+.fibonacci-number-input:hover {
+    border: solid 1px var(--info-color);
+}
