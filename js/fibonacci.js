@@ -1,27 +1,47 @@
-document.getElementById("fibonacciNumberInput").addEventListener("keypress", function(event) {
-    if (event.key === "Enter") {
-      event.preventDefault();
+document
+    .getElementById("fibonacciNumberInput")
+    .addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
 
-      // Enter key on input works as button click, makes fibonacci calculation
-      document.getElementById("fibonacci-button").click();
-    }
-});
+            // Enter key on input works as button click, makes Fibonacci calculation
+            document.getElementById("fibonacci-button").click();
+        }
+    });
 
 function fibonacci() {
-    const values = [
-        0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597,
-        2584, 4181, 6765, 10946, 17711, 28657, 46368, 75025, 121393, 196418,
-        317811, 514229, 832040, 1346269, 2178309, 3524578, 5702887, 9227465,
-        14930352, 24157817, 39088169, 63245986, 102334155,
-    ];
+    let n = parseInt(document.getElementById("fibonacciNumberInput").value);
+    let result = fibonacciCalc(n);
 
-    var n = parseInt(document.getElementById("fibonacciNumberInput").value);
+    let resultInput = document.getElementById("result");
+    resultInput.innerHTML = result; // result replaced
+}
 
-    if (n >= 0 && n < 41) {
-        var result = document.getElementById("result");
-        result.innerHTML = values[n];
+function fibonacciCalc(n) {
+    if (!n) {
+        console.log("n = 0");
+        console.log(0);
+        return 0;
+    } else if (n === 1) {
+        console.log("n = 1");
+        console.log(1);
+        return 1;
     } else {
-        var result = document.getElementById("result");
-        result.innerHTML = "";
+        let result = 0;
+
+        // set i and j counters as 0 and 1, initial values of fibonacci series
+        let i = 0;
+        let j = 1;
+
+        for (let k = 1; k < n; k++) {
+            result = i + j;
+            i = j;
+            j = result;
+        }
+
+        console.log("n = " + n);
+        console.log(result);
+
+        return result;
     }
 }
