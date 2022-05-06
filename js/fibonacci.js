@@ -1,3 +1,5 @@
+const FIBONACCI_MAX_N_VALUE = 50;
+
 document
     .getElementById("fibonacciNumberInput")
     .addEventListener("keypress", function (event) {
@@ -5,8 +7,14 @@ document
             event.preventDefault();
 
             // Enter key on input works as button click, makes Fibonacci calculation
-            document.getElementById("fibonacci-button").click();
+            document.getElementById("fibonacciButton").click();
         }
+    });
+
+document
+    .getElementById("fibonacciButton")
+    .addEventListener("click", function (event) {
+        fibonacci();
     });
 
 function fibonacci() {
@@ -14,19 +22,21 @@ function fibonacci() {
     let result = fibonacciCalc(n);
 
     let resultInput = document.getElementById("result");
+
+    if (result === -1) {
+        // if out of bounds...
+        result = ""; // blank
+    }
+
     resultInput.innerHTML = result; // result replaced
 }
 
 function fibonacciCalc(n) {
     if (!n) {
-        console.log("n = 0");
-        console.log(0);
         return 0;
     } else if (n === 1) {
-        console.log("n = 1");
-        console.log(1);
         return 1;
-    } else {
+    } else if (n > 0 && n <= FIBONACCI_MAX_N_VALUE) {
         let result = 0;
 
         // set i and j counters as 0 and 1, initial values of fibonacci series
@@ -39,9 +49,8 @@ function fibonacciCalc(n) {
             j = result;
         }
 
-        console.log("n = " + n);
-        console.log(result);
-
         return result;
+    } else {
+        return -1;
     }
 }
