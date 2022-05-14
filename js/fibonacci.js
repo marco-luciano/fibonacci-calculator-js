@@ -15,42 +15,45 @@ document
 document
     .getElementById("fibonacciButton")
     .addEventListener("click", function (event) {
+        hideAlerts();
+        showSpinner();
+
         fibonacci();
     });
 
 async function fibonacci() {
     let n = parseInt(document.getElementById("fibonacciNumberInput").value);
-    let result = await fibonacciCalc(n);
 
-    let resultInput = document.getElementById("result");
+    let result = await fibonacciCalc(n);
 
     if (typeof result === "undefined") {
         // if something went wrong (network error, bad request/out of bounds)...
         result = ""; // blank
     }
 
-    resultInput.innerHTML = result; // result replaced
+    hideSpinner();
+    showResult(result);
 }
 
 async function fibonacciCalc(n) {
-    if (n) {
+    if (n >= 0 && n <= 50) {
         var result = await fetch(FIBONACCI_MAIN_URL + "/fibonacci/" + n)
             .then(async function (response) {
                 if (!response.ok) {
-                    // bad request, server error
                     throw Error(await response.text());
                 }
-
                 return response.json();
             })
             .then((data) => {
                 return data.result;
             })
-            // network error
-            .catch((error) => console.error(error));
+            .catch(async function (error) {
+                displayServerError("Server " + error);
+            });
+    } else if (n >= 50) {
+        await displayValidationError("Can’t be larger than 50");
     } else {
-        // temporary behavior until next Milestone
-        console.error("Error: Not a number");
+        await displayValidationError("Error: Not a valid number");
     }
 
     return result;
@@ -98,3 +101,55 @@ function fibonacciCalcRecursive(n) {
         return -1;
     }
 }
+
+function hideSpinner() {
+    let spinner = document.getElementById("fibonacciSpinner");
+    spinner.style.setProperty("display", "none");
+}
+
+function showSpinner() {
+    let spinner = document.getElementById("fibonacciSpinner");
+    spinner.style.setProperty("display", "block");
+}
+
+function hideResult() {
+    let resultInput = document.getElementById("result");
+    result.style.setProperty("display", "none");
+}
+
+function showResult(result) {
+    let resultInput = document.getElementById("result");
+
+    resultInput.innerHTML = result; // result replaced
+
+    resultInput.style.setProperty("display", "block");
+}
+
+function hideValidationError() {
+    let validation = document.getElementById("alertValidation");
+    validation.style.setProperty("display", "none");
+}
+
+async function displayValidationError(message) {
+    let validation = document.getElementById("alertValidation");
+    validation.innerHTML = message;
+    validation.style.display = "block";
+}
+
+function hideServerError() {
+    let validation = document.getElementById("alertServer");
+    validation.style.setProperty("display", "none");
+}
+
+function displayServerError(message) {
+    let alertServer = document.getElementById("alertServer");
+    alertServer.innerHTML = message;
+    alertServer.style.display = "block";
+}
+
+function hideAlerts(){
+    hideResult();
+    hideValidationError();
+    hideServerError();
+}
+
