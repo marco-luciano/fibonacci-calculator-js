@@ -39,6 +39,30 @@ body {
     font-size: calc(2.4rem + 10px);
 }
 
+.fibonacci-results {
+    margin-top: 4rem;
+}
+
+.fibonacci-results-title {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.fibonacci-results-title-text {
+    font-size: calc(1.2rem + 12px);
+}
+
+.fibonacci-results-table {
+    max-width: 850px;
+}
+
+.fibonacci-record {
+    height: 50px;
+    position: relative;
+    top: 14px;
+}
+
 .fibonacci-of,
 #result {
     font-size: calc(0.5vw + 12px);
@@ -65,6 +89,13 @@ body {
     display: none;
 }
 
+#fibonacciResultsSpinner {
+    position: relative;
+    top: 10px;
+    width: 20px;
+    height: 20px;
+}
+
 #alertValidation {
     display: none;
     margin: 8px;
@@ -80,5 +111,5 @@ body {
 #alertServer {
     display: none;
     font-size: 14px;
-    color: #D9534F;
+    color: #d9534f;
 }

@@ -1,0 +1,5 @@
+@media only screen and (max-width: 1000px) {
+    .fibonacci-record {
+        height: calc(4rem + 22px);
+    }
+}
