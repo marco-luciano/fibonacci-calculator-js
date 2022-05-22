@@ -26,11 +26,13 @@ document
 
 function fibonacci() {
     let n = parseInt(document.getElementById("fibonacciNumberInput").value);
-    let calc = fibonacciCalc(n);
+    let saveCalculation = document.getElementById("checkSaveCalculation");
+
+    saveCalculation.checked ? fibonacciCalcServer(n) : fibonacciCalcLocal(n);
 }
 
-function fibonacciCalc(n) {
-    if (n >= 0 && n <= 50) {
+function fibonacciCalcServer(n) {
+    if (n >= 0 && n <= FIBONACCI_MAX_N_VALUE) {
         let result = fetch(FIBONACCI_MAIN_URL + "/fibonacci/" + n)
             .then(function (response) {
                 if (!response.ok) {
@@ -53,10 +55,48 @@ function fibonacciCalc(n) {
             });
 
         return result;
-    } else if (n >= 50) {
-        displayValidationError("Can’t be larger than 50");
+    } else if (n >= FIBONACCI_MAX_N_VALUE) {
+        displayValidationError("Can’t be larger than " + FIBONACCI_MAX_N_VALUE);
     } else {
         displayValidationError("Error: Not a valid number");
+    }
+}
+
+function fibonacciCalcLocal(n) {
+    let result = fibonacciCalcIterative(n);
+
+    if (result >= 0) {
+        showResult(result);
+    }
+}
+
+function fibonacciCalcIterative(n) {
+    hideElement("fibonacciSpinner");
+
+    if (n === 0) {
+        return 0;
+    } else if (n === 1) {
+        return 1;
+    } else if (n > 0 && n <= FIBONACCI_MAX_N_VALUE) {
+        let result = 0;
+
+        // set i and j counters as 0 and 1, initial values of fibonacci series
+        let i = 0;
+        let j = 1;
+
+        for (let k = 1; k < n; k++) {
+            result = i + j;
+            i = j;
+            j = result;
+        }
+
+        return result;
+    } else if (n >= FIBONACCI_MAX_N_VALUE) {
+        displayValidationError("Can’t be larger than 50");
+        return -1;
+    } else {
+        displayValidationError("Error: Not a valid number");
+        return -1;
     }
 }
 

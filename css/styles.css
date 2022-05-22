@@ -54,7 +54,7 @@ body {
 }
 
 .fibonacci-results-table {
-    max-width: 850px;
+    max-width: 860px;
 }
 
 .fibonacci-record {
@@ -112,4 +112,8 @@ body {
     display: none;
     font-size: 14px;
     color: #d9534f;
+}
+
+.form-check-save-calculation {
+    margin-top: 1rem;
 }
